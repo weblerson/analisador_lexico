@@ -9,10 +9,15 @@ static const char DELIMITERS[] = {';', '(', ')', '{', '}'};
 
 static const char ARITHMETIC_OPERATORS[] = {'=', '+', '-', '*', '/'};
 
+static const char *const RELATIONAL_OPERATORS[] = {"==", ">",  "<",
+                                                   ">=", "<=", "!="};
+
 #define RESERVED_WORDS_SIZE (sizeof RESERVED_WORDS / sizeof RESERVED_WORDS[0])
 #define DELIMITERS_SIZE (sizeof DELIMITERS / sizeof DELIMITERS[0])
 #define ARITHMETIC_OPERATORS_SIZE                                              \
   (sizeof ARITHMETIC_OPERATORS / sizeof ARITHMETIC_OPERATORS[0])
+#define RELATIONAL_OPERATORS_SIZE                                              \
+  (sizeof RELATIONAL_OPERATORS / sizeof RELATIONAL_OPERATORS[0])
 
 int check_delimiter(const char character) {
   int i;
@@ -31,6 +36,18 @@ int check_arithmetic_operator(const char character) {
 
   for (i = 0; i < (int)ARITHMETIC_OPERATORS_SIZE; i++) {
     if (ARITHMETIC_OPERATORS[i] == character) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+int check_relational_operator(const char *word) {
+  int i;
+
+  for (i = 0; i < (int)RELATIONAL_OPERATORS_SIZE; i++) {
+    if (strcmp(RELATIONAL_OPERATORS[i], word) == 0) {
       return 1;
     }
   }

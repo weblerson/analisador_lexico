@@ -74,7 +74,7 @@ int main() {
   int j;
   char token[64];
 
-  content = "int numero = 25;";
+  content = "int numero_1 >= 25;";
   printf("Código:\n%s\n", content);
 
   printf("\nTokens:\n");
@@ -83,8 +83,8 @@ int main() {
   while (content[i] != '\0') {
     j = 0;
     c = (unsigned char)content[i];
-    if (isalnum(c)) {
-      while (isalnum(c) && j < 63) {
+    if (isalnum(c) || c == '_') {
+      while ((isalnum(c) || c == '_') && j < 63) {
         token[j++] = c;
         c = (unsigned char)content[++i];
       }
@@ -95,16 +95,25 @@ int main() {
       } else if (check_integer(token)) {
         printf("%s -> NUMERO INTEIRO\n", token);
       } else {
-        printf("%s\n", token);
+        printf("%s -> IDENTIFICADOR\n", token);
       }
-    } else if (check_arithmetic_operator(c)) {
-      printf("%c -> OPERADOR ARITMETICO\n", c);
-      i++;
-    } else if (check_delimiter(c)) {
-      printf("%c -> DELIMITADOR\n", c);
-      i++;
     } else {
-      i++;
+      token[0] = content[i];
+      token[1] = content[i + 1];
+      token[2] = '\0';
+
+      if (check_relational_operator(token)) {
+        printf("%s -> OPERADOR RELACIONAL\n", token);
+        i = i + 2;
+      } else if (check_arithmetic_operator(c)) {
+        printf("%c -> OPERADOR ARITMETICO\n", c);
+        i++;
+      } else if (check_delimiter(c)) {
+        printf("%c -> DELIMITADOR\n", c);
+        i++;
+      } else {
+        i++;
+      }
     }
   }
 

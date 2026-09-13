@@ -21,7 +21,7 @@ int main(void) {
   fp = fopen(filename, "r");
 
   if (fp) {
-    printf("\nTokens:\n");
+    printf("\nTokens e lexemas:\n");
 
     while (fgets(content, MAX_FILE_SIZE, fp)) {
       i = 0;

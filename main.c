@@ -4,7 +4,7 @@
 
 #define MAX_FILE_SIZE 16384
 
-int main() {
+int main(void) {
   int i;
   char c;
 
@@ -16,7 +16,7 @@ int main() {
   char token[64];
 
   printf("Digite o nome do arquivo: ");
-  scanf("%s128", filename);
+  scanf("%127s", filename);
 
   fp = fopen(filename, "r");
 

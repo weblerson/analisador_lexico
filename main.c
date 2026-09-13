@@ -146,8 +146,8 @@ int main() {
       while (content[i] != '\0') {
         j = 0;
         c = (unsigned char)content[i];
-        if (isalnum(c) || c == '_') {
-          while ((isalnum(c) || c == '_') && j < 63) {
+        if (isalnum(c) || c == '_' || c == '.') {
+          while ((isalnum(c) || c == '_' || c == '.') && j < 63) {
             token[j++] = c;
             c = (unsigned char)content[++i];
           }
@@ -155,6 +155,8 @@ int main() {
 
           if (check_reserved_word(token)) {
             printf("%s -> PALAVRA RESERVADA\n", token);
+          } else if (check_float(token)) {
+            printf("%s -> NUMERO DECIMAL\n", token);
           } else if (check_integer(token)) {
             printf("%s -> NUMERO INTEIRO\n", token);
           } else {
@@ -168,6 +170,9 @@ int main() {
           if (check_relational_operator(token)) {
             printf("%s -> OPERADOR RELACIONAL\n", token);
             i = i + 2;
+          } else if (check_assignment(c)) {
+            printf("%c -> ATRIBUICAO\n", c);
+            i++;
           } else if (check_arithmetic_operator(c)) {
             printf("%c -> OPERADOR ARITMETICO\n", c);
             i++;

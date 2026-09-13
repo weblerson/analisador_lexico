@@ -7,7 +7,7 @@ static const char *const RESERVED_WORDS[] = {"int",  "float", "char", "if",
 
 static const char DELIMITERS[] = {';', '(', ')', '{', '}'};
 
-static const char ARITHMETIC_OPERATORS[] = {'=', '+', '-', '*', '/'};
+static const char ARITHMETIC_OPERATORS[] = {'+', '-', '*', '/'};
 
 static const char *const RELATIONAL_OPERATORS[] = {"==", ">",  "<",
                                                    ">=", "<=", "!="};
@@ -26,6 +26,14 @@ int check_delimiter(const char character) {
     if (DELIMITERS[i] == character) {
       return 1;
     }
+  }
+
+  return 0;
+}
+
+int check_assignment(const char character) {
+  if (character == '=') {
+    return 1;
   }
 
   return 0;
@@ -77,6 +85,31 @@ int check_integer(const char *word) {
     } else {
       return 0;
     }
+  }
+
+  return 1;
+}
+
+int check_float(const char *word) {
+  int i, size, has_dot;
+  char c;
+  size = strlen(word);
+
+  has_dot = 0;
+  for (i = 0; i < size; i++) {
+    c = word[i];
+    if (isdigit(c)) {
+      continue;
+    } else if (c == '.') {
+      has_dot = 1;
+      continue;
+    } else {
+      return 0;
+    }
+  }
+
+  if (!has_dot) {
+    return 0;
   }
 
   return 1;

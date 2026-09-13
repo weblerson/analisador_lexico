@@ -28,8 +28,10 @@ int main(void) {
       while (content[i] != '\0') {
         j = 0;
         c = (unsigned char)content[i];
-        if (isalnum(c) || c == '_' || c == '.') {
-          while ((isalnum(c) || c == '_' || c == '.') && j < 63) {
+        if (isalnum(c) || c == '_' || c == '.' || c == '\'' || c == '\"') {
+          while (
+              (isalnum(c) || c == '_' || c == '.' || c == '\'' || c == '\"') &&
+              j < 63) {
             token[j++] = c;
             c = (unsigned char)content[++i];
           }
@@ -41,6 +43,10 @@ int main(void) {
             printf("%s -> NUMERO DECIMAL\n", token);
           } else if (check_integer(token)) {
             printf("%s -> NUMERO INTEIRO\n", token);
+          } else if (check_character(token)) {
+            printf("%s -> CARACTERE\n", token);
+          } else if (check_string(token)) {
+            printf("%s -> STRING\n", token);
           } else {
             printf("%s -> IDENTIFICADOR\n", token);
           }

@@ -114,3 +114,29 @@ int check_float(const char *word) {
 
   return 1;
 }
+
+int check_character(const char *word) {
+  int size;
+
+  size = strlen(word);
+  if (size != 3) {
+    return 0;
+  }
+
+  if (!(word[0] == '\'' && word[size - 1] == '\'')) {
+    return 0;
+  }
+
+  return 1;
+}
+
+int check_string(const char *word) {
+  int size;
+
+  size = strlen(word);
+  if (word[0] == '\"' && word[size - 1] == '\"') {
+    return 1;
+  }
+
+  return 0;
+}

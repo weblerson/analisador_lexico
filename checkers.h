@@ -15,4 +15,8 @@ int check_integer(const char *word);
 
 int check_float(const char *word);
 
+int check_character(const char *word);
+
+int check_string(const char *word);
+
 #endif
